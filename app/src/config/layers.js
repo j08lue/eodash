@@ -117,6 +117,16 @@ export const baseLayers = Object.freeze({
     visible: false,
     protocol: 'xyz',
   },
+  MENSIG38_VV: {
+    name: 'S1 Global Backscatter Model (MENSIG38_VV)',
+    url: 'https://s1map.eodc.eu/vv/{z}/{x}/{-y}.png',
+    attribution: '{ <a href="https://s1map.eodc.eu/" target="_blank">S1 Global Backscatter Model EODC</a> }',
+    visible: false,
+    minZoom: 1,
+    maxZoom: 14,
+    protocol: 'xyz',
+    projection: 'EPSG:4326',
+  },
 });
 
 export const overlayLayers = Object.freeze({

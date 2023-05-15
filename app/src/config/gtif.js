@@ -329,6 +329,7 @@ const energyTransitionDefaults = {
     baseLayers.bodenwertigkeitskarte_agri,
     baseLayers.bodenwertigkeitskarte_grassland,
     baseLayers.dsr_schnelllade_10km,
+    baseLayers.MENSIG38_VV,
   ],
   overlayLayers: [
     { ...overlayLayers.powerOpenInfrastructure, visible: true },
