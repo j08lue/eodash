@@ -75,6 +75,8 @@ export default {
     administrativeConfigs: [Array, null],
     dataLayerConfigLayerControls: [Array, null],
     isGlobalIndicator: Boolean,
+    // for custom dashboard, visibility override
+    layersVisibility: Array,
   },
   data() {
     return {
@@ -123,6 +125,9 @@ export default {
       map,
       {
         zIndex: 0,
+        ...(this.layersVisibility
+          ? { visible: this.layersVisibility.includes(l.name) }
+          : {}),
       }));
     baseLayers.forEach((l) => {
       map.addLayer(l);
@@ -133,6 +138,9 @@ export default {
         // higher zIndex for labels
         zIndex: l.name === 'Overlay labels' ? 4 : (l.zIndex || 2),
         updateOpacityOnZoom: l.name === 'Overlay labels' || l.name === 'Country vectors',
+        ...(this.layersVisibility
+          ? { visible: this.layersVisibility.includes(l.name) }
+          : {}),
       }));
     overlayLayers.forEach((l) => {
       map.addLayer(l);

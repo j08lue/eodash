@@ -80,6 +80,7 @@ import {
   mapActions,
   mapState,
 } from 'vuex';
+import { getMapInstance } from '@/components/map/map';
 
 export default {
   props: {
@@ -123,6 +124,11 @@ export default {
     ]),
     async toggle() {
       const poiValue = `${this.getLocationCode(this.indicatorObject)}@${Date.now()}`;
+      const { map } = getMapInstance('centerMap');
+      const visibleLayers = map.getLayers().getArray()
+        .filter((l) => l.getVisible())
+        .map((l) => l.get('name'))
+        .filter((l) => l);
       this.addFeature(
         {
           poi: this.indicatorObject.poi
@@ -150,6 +156,7 @@ export default {
               center: this.center,
               dataLayerTime: this.datalayertime,
               compareLayerTime: this.comparelayertime,
+              layers: visibleLayers,
             },
           }),
         },

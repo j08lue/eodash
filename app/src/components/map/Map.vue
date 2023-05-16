@@ -109,6 +109,7 @@
         :administrativeConfigs="administrativeConfigs"
         :dataLayerConfigLayerControls="dataLayerConfigLayerControls"
         :isGlobalIndicator="isGlobalIndicator"
+        :layersVisibility="layersProp"
       />
       <!-- will add a drawing layer to the map (z-index 3) -->
       <CustomAreaButtons
@@ -235,6 +236,9 @@ export default {
     zoomProp: {
       type: Number,
       default: undefined,
+    },
+    layersProp: {
+      type: Array,
     },
     panelActive: Boolean,
   },

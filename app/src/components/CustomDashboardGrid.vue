@@ -181,11 +181,13 @@
                 :compareLayerTimeProp="localCompareLayerTime[element.poi]"
                 :centerProp="localCenter[element.poi]"
                 :zoomProp="localZoom[element.poi]"
+                :layersProp="localLayers[element.poi]"
                 disableAutoFocus
                 @update:center="c => {localCenter[element.poi] = c}"
                 @update:zoom="z => {localZoom[element.poi] = z}"
                 @update:datalayertime="d => {localDataLayerTime[element.poi] = d}"
                 @update:comparelayertime="d => {localCompareLayerTime[element.poi] = d}"
+                @update:layers="d => {localLayers[element.poi] = d}"
                 @ready="onMapReady(element.poi)"
               />
               <!--<indicator-map
@@ -489,6 +491,7 @@ export default {
     localUp: {},
     localDataLayerTime: {},
     localCompareLayerTime: {},
+    localLayers: {},
     serverZoom: {},
     serverCenter: {},
     serverDirection: {},
@@ -497,6 +500,7 @@ export default {
     serverUp: {},
     serverDataLayerTime: {},
     serverCompareLayerTime: {},
+    serverLayers: {},
     enableCompare: {},
     savedPoi: null,
     offsetTop: 0,
@@ -538,6 +542,9 @@ export default {
             return true;
           }
           if (this.localZoom[element.poi] !== this.serverZoom[element.poi]) {
+            return true;
+          }
+          if (this.localLayers[element.poi] !== this.serverLayers[element.poi]) {
             return true;
           }
         }
@@ -673,6 +680,7 @@ export default {
         this.localUp[poi] = this.serverUp[poi];
         this.localDataLayerTime[poi] = this.serverDataLayerTime[poi];
         this.localCompareLayerTime[poi] = this.serverCompareLayerTime[poi];
+        this.localLayers[poi] = this.serverLayers[poi];
       }, 1000);
     },
     update(el) { // eslint-disable-line
@@ -694,6 +702,7 @@ export default {
             compareLayerTime: this.localCompareLayerTime[el.poi]
               ? this.localCompareLayerTime[el.poi]
               : undefined,
+            layers: this.localLayers[el.poi],
           },
         );
       }
@@ -803,6 +812,7 @@ export default {
           this.$set(this.localRight, f.poi, f.mapInfo.right);
           this.$set(this.localUp, f.poi, f.mapInfo.up);
           this.$set(this.localDataLayerTime, f.poi, f.mapInfo.dataLayerTime);
+          this.$set(this.localLayers, f.poi, f.mapInfo.layers);
 
           this.$set(this.serverZoom, f.poi, f.mapInfo.zoom);
           this.$set(this.serverCenter, f.poi, f.mapInfo.center);
@@ -811,6 +821,7 @@ export default {
           this.$set(this.serverRight, f.poi, f.mapInfo.right);
           this.$set(this.serverUp, f.poi, f.mapInfo.up);
           this.$set(this.serverDataLayerTime, f.poi, f.mapInfo.dataLayerTime);
+          this.$set(this.serverLayers, f.poi, f.mapInfo.layers);
 
           if (f.mapInfo.dataLayerTime) {
             this.$set(this.localCompareLayerTime, f.poi, f.mapInfo.compareLayerTime);
